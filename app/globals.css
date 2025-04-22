@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "@tailwindcss/forms";
 :root {
   --background: #ffffff;
   --foreground: #171717;
