@@ -12,6 +12,7 @@ model Account{
   id String @id @default(auto()) @map ("_id") @db.ObjectId
   email String @unique
   password String
+  companyName String
   firstName String
   lastName String
   addressLine1 String?
@@ -37,6 +38,7 @@ model VerificationToken{
   identifier String
   token String @unique
   expires DateTime
+  used Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
