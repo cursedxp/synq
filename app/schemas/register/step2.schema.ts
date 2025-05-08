@@ -6,6 +6,7 @@ const requiredField = (message: string) =>
   });
 
 export const step2Schema = z.object({
+  companyName: requiredField("Company name is required"),
   firstName: requiredField("First name is required"),
   lastName: requiredField("Last name is required"),
   addressLine1: requiredField("Address line 1 is required"),
