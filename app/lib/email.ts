@@ -12,7 +12,7 @@ interface EmailOptions {
 }
 
 export async function sendVerificationEmail(email: string, token: string) {
-  const confirmLink = `${process.env.NEXTAUTH_URL}/auth/verify?token=${token}`;
+  const confirmLink = `${process.env.NEXTAUTH_URL}/verify?token=${token}`;
   const template = verificationEmailTemplate(confirmLink);
 
   const emailOptions: EmailOptions = {
@@ -23,9 +23,11 @@ export async function sendVerificationEmail(email: string, token: string) {
 
   try {
     await resend.emails.send(emailOptions);
-    return { success: true, message: "Verification email sent successfully" };
   } catch (error) {
     console.error("Error sending verification email:", error);
-    return { success: false, message: "Failed to send verification email" };
+    if (error instanceof Error) {
+      throw new Error(`Failed to send verification email: ${error.message}`);
+    }
+    throw new Error("Failed to send verification email");
   }
 }
