@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/app/lib/prisma";
-import { step1Schema } from "@/app/schemas/register/step1.schema";
-import { step2Schema } from "@/app/schemas/register/step2.schema";
+import { step1Schema } from "@/app/schemas/signup/step1.schema";
+import { step2Schema } from "@/app/schemas/signup/step2.schema";
 import { sendVerificationEmail } from "@/app/lib/email";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
