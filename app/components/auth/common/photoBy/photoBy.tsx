@@ -14,10 +14,10 @@ export default function PhotoBy({
   photoUrl,
 }: PhotoByProps) {
   return (
-    <div className="absolute bottom-4 right-4 h-10 px-4 min-w-2 rounded-full bg-zinc-900 flex items-center justify-center">
-      <div className="text-sm flex items-center gap-2 text-white">
+    <div className="absolute bottom-4 right-2 py-2 px-2 w-md rounded-full bg-zinc-900">
+      <div className="flex justify-center text-sm items-center gap-2 text-white">
         <FiMapPin aria-hidden="true" />
-        <span>{location}</span>
+        <div>{location}</div>
         <FiAperture aria-hidden="true" />
         <Link
           className="font-semibold underline"
