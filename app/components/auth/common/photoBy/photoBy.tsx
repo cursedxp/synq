@@ -22,6 +22,7 @@ export default function PhotoBy({
         <Link
           className="font-semibold underline"
           href={photoUrl}
+          target="_blank"
           aria-label={`Photo by ${photographer}`}
         >
           {photographer}
