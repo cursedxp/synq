@@ -59,16 +59,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    //Check if user is already exists
-    const existingUser = await prisma.account.findUnique({
+    //Check if account is already exists
+    const existingAccount = await prisma.account.findUnique({
       where: {
         email: body.email,
       },
     });
 
-    if (existingUser) {
+    if (existingAccount) {
       return NextResponse.json(
-        { error: "User already exists" },
+        { error: "Account already exists" },
         { status: 400 }
       );
     }
@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
     //Password hashing
     const hashedPassword = await bcrypt.hash(body.password, 10);
 
-    // Create user in database
+    // Create account in database
     const newAccount = await prisma.$transaction(async (tx) => {
       const account = await tx.account.create({
         data: {
