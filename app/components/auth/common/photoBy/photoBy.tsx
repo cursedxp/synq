@@ -14,8 +14,12 @@ export default function PhotoBy({
   photoUrl,
 }: PhotoByProps) {
   return (
-    <div className="absolute bottom-4 right-2 py-2 px-2 w-md rounded-full bg-zinc-900">
-      <div className="flex justify-center text-sm items-center gap-2 text-white">
+    <div className="absolute bottom-4 right-4 py-2 px-2 rounded-full shadow-lg bg-zinc-900 max-w-md group cursor-pointer">
+      <FiAperture
+        aria-hidden="true"
+        className="text-white group-hover:hidden"
+      />
+      <div className="justify-center text-sm items-center gap-2 mx-2 text-white hidden group-hover:flex group-hover:transition-all group-hover:duration-300">
         <FiMapPin aria-hidden="true" />
         <div>{location}</div>
         <FiAperture aria-hidden="true" />
