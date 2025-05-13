@@ -2,15 +2,24 @@ import React from "react";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
+  loading?: boolean;
 }
 
-export default function Button({ label, ...props }: ButtonProps) {
+export default function Button({ label, loading, ...props }: ButtonProps) {
   return (
     <button
       className="bg-black text-white p-2 rounded-md mt-2 cursor-pointer hover:scale-[101%] hover:shadow-xl transition-all duration-300 flex justify-center items-center"
       {...props}
+      disabled={loading}
     >
-      {label}
+      {loading ? (
+        <div className="flex items-center gap-2">
+          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+          Loading
+        </div>
+      ) : (
+        label
+      )}
     </button>
   );
 }
