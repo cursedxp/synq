@@ -1,29 +1,26 @@
 "use client";
 import Button from "../common/button/button";
 import Input from "../common/input/input";
-import { signInSchema } from "@/app/schemas/signin/signin.schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { z } from "zod";
+import { signInSchema } from "@/app/schemas/signin/signin.schema";
 
-type SignInFormData = z.infer<typeof signInSchema>;
+interface SignInFromData {
+  email: string;
+  password: string;
+}
 
 export default function SignInForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<SignInFormData>({
+    formState: { errors },
+  } = useForm<SignInFromData>({
     resolver: zodResolver(signInSchema),
   });
 
-  const onSubmit = async (data: SignInFormData) => {
-    try {
-      // TODO: Implement sign in logic
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
+  const onSubmit = (data: SignInFromData) => {
+    console.log(data);
   };
 
   return (
@@ -35,21 +32,19 @@ export default function SignInForm() {
       <Input
         label="Email"
         type="email"
-        {...register("email")}
         placeholder="Email"
         error={errors.email?.message}
+        {...register("email")}
       />
       {/* Password */}
       <Input
         label="Password"
         type="password"
-        {...register("password")}
         placeholder="Password"
         error={errors.password?.message}
+        {...register("password")}
       />
-      <Button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? "Signing in..." : "Sign in"}
-      </Button>
+      <Button label="Login" />
     </form>
   );
 }
