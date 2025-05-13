@@ -22,22 +22,31 @@ export const authOptions: AuthOptions = {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
-      authorize: async (
-        credentials: Record<"email" | "password", string> | undefined
-      ) => {
-        if (!credentials?.email || !credentials?.password) return null;
+      authorize: async (credentials) => {
+        if (!credentials?.email || !credentials?.password) {
+          throw new Error("Email and password are required");
+        }
         try {
           const account = await prisma.account.findUnique({
             where: { email: credentials.email },
           });
-          if (!account) return null;
+
+          if (!account) {
+            throw new Error("Invalid email or password");
+          }
+
           const passwordsMatch = await bcrypt.compare(
             credentials.password,
             account.password
           );
-          return passwordsMatch ? account : null;
+
+          if (!passwordsMatch) {
+            throw new Error("Invalid email or password");
+          }
+
+          return account;
         } catch {
-          return null;
+          throw new Error("Invalid email or password");
         }
       },
     }),
