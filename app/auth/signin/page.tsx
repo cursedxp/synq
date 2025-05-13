@@ -1,6 +1,5 @@
 import Image from "next/image";
 import PhotoBy from "@/app/components/auth/common/photoBy/photoBy";
-import Link from "next/link";
 import SignInForm from "@/app/components/auth/signInForm/signInForm";
 export default function SignIn() {
   return (
@@ -28,20 +27,6 @@ export default function SignIn() {
               Welcome back! Let&apos;s continue your journey
             </p>
             <SignInForm />
-            <div className="text-gray-500 text-sm flex justify-between">
-              <div>
-                Are you new here?{" "}
-                <Link
-                  href="/auth/signup"
-                  className="font-bold text-black underline"
-                >
-                  Sign up
-                </Link>
-              </div>
-              <div className="flex text-sm text-black font-semibold underline">
-                <Link href="/auth/forgot-password">Forgot password?</Link>
-              </div>
-            </div>
           </div>
         </div>
       </div>
