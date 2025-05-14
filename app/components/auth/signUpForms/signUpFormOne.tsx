@@ -1,7 +1,7 @@
 import Input from "@/app/components/auth/common/input/input";
 import Button from "../common/button/button";
 import { Select } from "../common/select/select";
-import PasswordStrengthMeter from "../common/passwordStrengthMeter/PasswordStrengthMeter";
+import PasswordStrengthMeter from "../common/passwordStrengthMeter/passwordStrengthMeter";
 export const SignUpFormOne = () => {
   return (
     <form className="flex flex-col gap-4 w-full">
