@@ -24,9 +24,12 @@ export default function SignInForm() {
 
   const { signIn, error, loading } = useAuth();
 
-  const onSubmit = (data: SignInFromData) => {
-    signIn(data);
-    router.push("/");
+  const onSubmit = async (data: SignInFromData) => {
+    const result = await signIn(data);
+    console.log(result);
+    if (result?.ok && !result?.error) {
+      router.push("/");
+    }
   };
 
   return (
