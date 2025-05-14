@@ -18,7 +18,7 @@ export default function Input({ label, error, ...props }: InputProps) {
     <div className="flex flex-col">
       <label
         htmlFor={props.name}
-        className="text-sm text-black mb-1 cursor-pointer"
+        className="text-xs text-black mb-1 cursor-pointer"
       >
         {label}
       </label>
