@@ -27,6 +27,7 @@ export default function Input({ label, error, ...props }: InputProps) {
           {...props}
           type={showPassword ? "text" : props.type}
           className="p-2 rounded-md border border-gray-300 w-full focus:outline-black"
+          id={props?.name}
         />
         {props.type === "password" && (
           <button
