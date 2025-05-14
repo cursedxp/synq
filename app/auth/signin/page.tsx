@@ -14,6 +14,7 @@ export default function SignIn() {
             fill
             priority
             sizes="(max-width: 768px) 0vw, 100vw"
+            className="object-cover"
           />
           <PhotoBy
             location="Yellowstone National Park, United States"
