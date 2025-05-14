@@ -2,8 +2,9 @@
 import { useState } from "react";
 import zxcvbn from "zxcvbn";
 
-//TODO: check password coming from react hook form
-//TODO: remove state
+//TODO: use typescript types when you implement it in the form
+//TODO: check password coming from react hook form and remove state
+
 export default function PasswordStrengthMeter() {
   const [password, setPassword] = useState("2312312");
 
