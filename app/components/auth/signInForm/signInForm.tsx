@@ -26,7 +26,7 @@ export default function SignInForm() {
 
   const onSubmit = async (data: SignInFromData) => {
     const result = await signIn(data);
-    console.log(result);
+
     if (result?.ok && !result?.error) {
       router.push("/");
     }
