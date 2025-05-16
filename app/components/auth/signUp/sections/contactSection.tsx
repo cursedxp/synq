@@ -1,22 +1,17 @@
-import { HiArrowLeft } from "react-icons/hi";
 import Input from "../../common/input/input";
 import SectionTitle from "./sectionTitle";
+import BackButton from "../../backButton/backButton";
 
 export default function ContactSection({
   setCurrentStep,
+  currentStep,
 }: {
   setCurrentStep: (step: number) => void;
+  currentStep: number;
 }) {
   return (
     <>
-      <button
-        className="mb-4 cursor-pointer border border-zinc-200 p-2 rounded-full w-fit hover:bg-zinc-300"
-        onClick={() => {
-          setCurrentStep(1);
-        }}
-      >
-        <HiArrowLeft className="w-4 h-4" />
-      </button>
+      <BackButton setCurrentStep={setCurrentStep} currentStep={currentStep} />
       <SectionTitle
         title="Contact details"
         description="Please provide your contact details to create your account."
