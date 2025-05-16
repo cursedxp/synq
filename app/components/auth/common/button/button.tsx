@@ -14,7 +14,7 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button
-      className="bg-black text-white p-2 rounded-md mt-2 cursor-pointer hover:scale-[101%] hover:shadow-xl transition-all duration-300 flex justify-center items-center"
+      className="bg-black text-white p-2 rounded-md cursor-pointer hover:scale-[101%] hover:shadow-xl transition-all duration-300 flex justify-center items-center mt-4"
       {...props}
       disabled={loading}
       onClick={onClick}
