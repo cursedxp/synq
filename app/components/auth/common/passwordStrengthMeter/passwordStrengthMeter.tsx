@@ -52,7 +52,7 @@ export default function PasswordStrengthMeter() {
   const passwordStrength = checkedPassword.score;
   console.log(passwordStrength);
   return (
-    <div className="flex flex-col gap-2 mt-2">
+    <div className="flex flex-col gap-2">
       <div className="w-full h-1 bg-gray-200 rounded-full relative">
         <div
           className={`absolute h-full rounded-full ${strengtParametters[passwordStrength].color}`}
