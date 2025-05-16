@@ -12,10 +12,10 @@ export default function Stepper({ currentStep, className }: StepperProps) {
           <div className="absolute top-0 left-0 w-full">
             {currentStep === 1 && (
               <motion.div
-                className={`h-1 bg-zinc-900 rounded-sm`}
-                initial={{ width: 0 }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 0.3 }}
+                className={`h-1 bg-zinc-900 rounded-sm w-full`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8 }}
               ></motion.div>
             )}
           </div>
@@ -31,10 +31,10 @@ export default function Stepper({ currentStep, className }: StepperProps) {
           <div className="absolute top-0 left-0 w-full">
             {currentStep === 2 && (
               <motion.div
-                className={`h-1 bg-zinc-900 rounded-sm`}
-                initial={{ width: 0 }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 0.3 }}
+                className={`h-1 bg-zinc-900 rounded-sm w-full`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8 }}
               ></motion.div>
             )}
           </div>
@@ -52,10 +52,10 @@ export default function Stepper({ currentStep, className }: StepperProps) {
           <div className="absolute top-0 left-0 w-full">
             {currentStep === 3 && (
               <motion.div
-                className={`h-1 bg-zinc-900 rounded-sm`}
-                initial={{ width: 0 }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 0.3 }}
+                className={`h-1 bg-zinc-900 rounded-sm w-full`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8 }}
               ></motion.div>
             )}
           </div>
