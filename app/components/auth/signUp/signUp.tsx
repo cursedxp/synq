@@ -3,9 +3,9 @@
 import Button from "../common/button/button";
 import Link from "next/link";
 import { useState } from "react";
-import AccountSection from "./sections/accountSection";
-import ContactSection from "./sections/contactSection";
-import AddressSection from "./sections/addressSection";
+import AccountSection from "@/app/components/auth/signUp/sections/accountSection";
+import ContactSection from "@/app/components/auth/signUp/sections/contactSection";
+import AddressSection from "@/app/components/auth/signUp/sections/addressSection";
 export default function SignUp() {
   const [step, setStep] = useState(1);
 
