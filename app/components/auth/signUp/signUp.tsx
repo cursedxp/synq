@@ -19,8 +19,12 @@ export default function SignUp() {
       <div className="flex flex-col w-sm gap-8">
         <form className="flex flex-col w-full">
           {step === 1 && <AccountSection />}
-          {step === 2 && <ContactSection setCurrentStep={setStep} />}
-          {step === 3 && <AddressSection setCurrentStep={setStep} />}
+          {step === 2 && (
+            <ContactSection setCurrentStep={setStep} currentStep={step} />
+          )}
+          {step === 3 && (
+            <AddressSection setCurrentStep={setStep} currentStep={step} />
+          )}
           {step === 1 && <Button label="Next" onClick={() => setStep(2)} />}
           {step === 2 && <Button label="Next" onClick={() => setStep(3)} />}
           {step === 3 && <Button label="Sign up" />}
