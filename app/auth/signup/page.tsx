@@ -1,8 +1,9 @@
 import PhotoBy from "@/app/components/auth/common/photoBy/photoBy";
 import Image from "next/image";
 import SplitScreen from "@/app/components/auth/common/splitScreen/splitScreen";
-import { SignUpForms } from "@/app/components/auth/signUpForms/signUpForms";
-export default function SignUp() {
+import SignUp from "@/app/components/auth/signUp/signUp";
+
+export default function SignUpPage() {
   return (
     <SplitScreen
       left={
@@ -22,7 +23,7 @@ export default function SignUp() {
           />
         </div>
       }
-      right={<SignUpForms />}
+      right={<SignUp />}
     />
   );
 }

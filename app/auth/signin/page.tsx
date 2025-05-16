@@ -1,6 +1,6 @@
 import Image from "next/image";
 import PhotoBy from "@/app/components/auth/common/photoBy/photoBy";
-import SignInForm from "@/app/components/auth/signInForm/signInForm";
+import SignInForm from "@/app/components/auth/signIn/signIn";
 import SplitScreen from "@/app/components/auth/common/splitScreen/splitScreen";
 
 export default function SignIn() {
