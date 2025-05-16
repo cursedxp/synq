@@ -6,16 +6,21 @@ import { useState } from "react";
 import AccountSection from "@/app/components/auth/signUp/sections/accountSection";
 import ContactSection from "@/app/components/auth/signUp/sections/contactSection";
 import AddressSection from "@/app/components/auth/signUp/sections/addressSection";
+import Stepper from "@/app/components/auth/stepper/stepper";
 export default function SignUp() {
   const [step, setStep] = useState(1);
 
   return (
-    <div className="flex flex-col items-center justify-center w-full">
-      <div className="flex flex-col w-sm gap-2">
+    <div className="flex flex-col w-full relative items-center justify-center">
+      <Stepper
+        currentStep={step}
+        className="absolute top-20 left-1/2 -translate-x-1/2"
+      />
+      <div className="flex flex-col w-sm gap-8">
         <form className="flex flex-col w-full">
           {step === 1 && <AccountSection />}
-          {step === 2 && <ContactSection />}
-          {step === 3 && <AddressSection />}
+          {step === 2 && <ContactSection setCurrentStep={setStep} />}
+          {step === 3 && <AddressSection setCurrentStep={setStep} />}
           {step === 1 && <Button label="Next" onClick={() => setStep(2)} />}
           {step === 2 && <Button label="Next" onClick={() => setStep(3)} />}
           {step === 3 && <Button label="Sign up" />}
