@@ -5,9 +5,16 @@ import { useState } from "react";
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
   error?: string;
+  type?: string;
 }
 
-export default function Input({ label, error, ...props }: InputProps) {
+export default function Input({
+  label,
+  error,
+  type,
+  className,
+  ...props
+}: InputProps) {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePassword = () => {
@@ -15,7 +22,7 @@ export default function Input({ label, error, ...props }: InputProps) {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className={`flex flex-col ${className}`}>
       <label
         htmlFor={props.name}
         className="text-xs text-black mb-1 cursor-pointer"
@@ -25,11 +32,11 @@ export default function Input({ label, error, ...props }: InputProps) {
       <div className="relative w-full">
         <input
           {...props}
-          type={showPassword ? "text" : props.type}
+          type={showPassword ? "text" : type}
           className="p-2 rounded-md border border-gray-300 w-full focus:outline-black"
           id={props?.name}
         />
-        {props.type === "password" && (
+        {type === "password" && (
           <button
             type="button"
             className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer"
