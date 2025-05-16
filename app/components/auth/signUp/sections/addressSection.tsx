@@ -1,15 +1,29 @@
 import Input from "../../common/input/input";
 import SectionTitle from "./sectionTitle";
 import CountrySelect from "../../common/select/countrySelect";
+import { HiArrowLeft } from "react-icons/hi";
 const testOptions = [
   { label: "United States", value: "US" },
   { label: "Italy", value: "IT" },
   { label: "Great Britain", value: "GB" },
   { label: "Australia", value: "AU" },
 ];
-export default function AddressSection() {
+
+export default function AddressSection({
+  setCurrentStep,
+}: {
+  setCurrentStep: (step: number) => void;
+}) {
   return (
     <>
+      <button
+        className="mb-4 cursor-pointer border border-zinc-200 p-2 rounded-full w-fit hover:bg-zinc-300"
+        onClick={() => {
+          setCurrentStep(2);
+        }}
+      >
+        <HiArrowLeft className="w-4 h-4" />
+      </button>
       <SectionTitle
         title="Address details"
         description="Please provide your address to create your account."
