@@ -49,7 +49,7 @@ export default function Select({
           );
         })}
       </select>
-      <div className="absolute right-2 top-3 h-full flex items-center justify-center">
+      <div className="absolute right-2 top-9 w-4 h-5 flex items-center justify-center">
         <FiChevronDown />
       </div>
     </div>
