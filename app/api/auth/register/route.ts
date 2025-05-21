@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/app/lib/prisma";
-import { step1Schema } from "@/app/schemas/signup/step1.schema";
-import { step2Schema } from "@/app/schemas/signup/step2.schema";
+import { signupSchema } from "@/app/schemas/signup/signup.schema";
 import { sendVerificationEmail } from "@/app/lib/email";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
@@ -39,22 +38,12 @@ export async function POST(request: NextRequest) {
   try {
     const body = (await request.json()) as RegisterRequest;
 
-    // Validate the first step
-    const firstStepValidation = step1Schema.safeParse(body);
+    // Validate the signup
+    const signupValidation = signupSchema.safeParse(body);
 
-    if (!firstStepValidation.success) {
+    if (!signupValidation.success) {
       return NextResponse.json(
-        { errors: firstStepValidation.error.flatten().fieldErrors },
-        { status: 400 }
-      );
-    }
-
-    // Validate the second step
-    const secondStepValidation = step2Schema.safeParse(body);
-
-    if (!secondStepValidation.success) {
-      return NextResponse.json(
-        { errors: secondStepValidation.error.flatten().fieldErrors },
+        { errors: signupValidation.error.flatten().fieldErrors },
         { status: 400 }
       );
     }
