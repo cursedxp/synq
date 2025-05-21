@@ -1,14 +1,22 @@
 import Input from "../../common/input/input";
 import SectionTitle from "./sectionTitle";
 import BackButton from "../../backButton/backButton";
+import { UseFormRegister, FieldErrors } from "react-hook-form";
+import { ContactSchema } from "@/app/schemas/signup/contact.schema";
 
-export default function ContactSection({
-  setCurrentStep,
-  currentStep,
-}: {
+interface ContactSectionProps {
+  register: UseFormRegister<ContactSchema>;
+  errors: FieldErrors<ContactSchema>;
   setCurrentStep: (step: number) => void;
   currentStep: number;
-}) {
+}
+
+export default function ContactSection({
+  register,
+  errors,
+  setCurrentStep,
+  currentStep,
+}: ContactSectionProps) {
   return (
     <>
       <BackButton setCurrentStep={setCurrentStep} currentStep={currentStep} />
@@ -19,11 +27,35 @@ export default function ContactSection({
       />
       <div className="flex flex-col gap-4">
         <div className="flex  gap-2">
-          <Input label="First name" type="text" placeholder="First name" />
-          <Input label="Last name" type="text" placeholder="Last name" />
+          <Input
+            label="First name"
+            type="text"
+            placeholder="First name"
+            {...register("firstName")}
+            error={errors.firstName?.message}
+          />
+          <Input
+            label="Last name"
+            type="text"
+            placeholder="Last name"
+            {...register("lastName")}
+            error={errors.lastName?.message}
+          />
         </div>
-        <Input label="Company name" type="text" placeholder="Company name" />
-        <Input label="Phone number" type="tel" placeholder="Phone number" />
+        <Input
+          label="Company name"
+          type="text"
+          placeholder="Company name"
+          {...register("companyName")}
+          error={errors.companyName?.message}
+        />
+        <Input
+          label="Phone number"
+          type="tel"
+          placeholder="Phone number"
+          {...register("phone")}
+          error={errors.phone?.message}
+        />
       </div>
     </>
   );
