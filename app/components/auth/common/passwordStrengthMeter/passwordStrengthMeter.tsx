@@ -1,13 +1,14 @@
 "use client";
-import { useState } from "react";
 import zxcvbn from "zxcvbn";
 
 //TODO: use typescript types when you implement it in the form
 //TODO: check password coming from react hook form and remove state
 
-export default function PasswordStrengthMeter() {
-  const [password, setPassword] = useState("2312312");
-
+export default function PasswordStrengthMeter({
+  password,
+}: {
+  password: string;
+}) {
   //Strength labels
   const strengtParametters = [
     {
@@ -49,8 +50,8 @@ export default function PasswordStrengthMeter() {
     },
   ];
   const checkedPassword = zxcvbn(password);
-  const passwordStrength = checkedPassword.score;
-  console.log(passwordStrength);
+  const passwordStrength = password.length < 8 ? 0 : checkedPassword.score;
+
   return (
     <div className="flex flex-col gap-2">
       <div className="w-full h-1 bg-gray-200 rounded-full relative">
