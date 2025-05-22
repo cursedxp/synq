@@ -1,13 +1,18 @@
 import Input from "@/app/components/auth/common/input/input";
 import PasswordStrengthMeter from "../../common/passwordStrengthMeter/passwordStrengthMeter";
 import SectionTitle from "./sectionTitle";
-import { UseFormRegister, FieldErrors } from "react-hook-form";
+import { UseFormRegister } from "react-hook-form";
 import { AccountSchema } from "@/app/schemas/signup/account.schema";
+import Link from "next/link";
 
 interface AccountSectionProps {
   register: UseFormRegister<AccountSchema>;
   password: string;
-  errors: FieldErrors<AccountSchema>;
+  errors: {
+    email?: { message?: string };
+    password?: { message?: string };
+    termsAccepted?: { message?: string };
+  };
 }
 
 export default function AccountSection({
@@ -38,6 +43,39 @@ export default function AccountSection({
           error={errors.password?.message}
         />
         <PasswordStrengthMeter password={password} />
+        <div className="flex flex-col gap-1">
+          <div className="flex items-start gap-2">
+            <input
+              type="checkbox"
+              {...register("termsAccepted")}
+              className="mt-1"
+              id="termsAccepted"
+            />
+            <label className="text-sm text-gray-600" htmlFor="termsAccepted">
+              By signing up, you agree to our{" "}
+              <Link
+                href="/terms-and-conditions"
+                className="text-black font-semibold underline"
+              >
+                Terms and Conditions
+              </Link>{" "}
+              and{" "}
+              <Link
+                href="/privacy-policy"
+                className="text-black font-semibold underline"
+              >
+                Privacy Policy
+              </Link>
+            </label>
+          </div>
+          <div className="ml-5">
+            {errors.termsAccepted && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.termsAccepted.message}
+              </p>
+            )}
+          </div>
+        </div>
       </div>
     </>
   );
