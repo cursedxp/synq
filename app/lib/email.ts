@@ -12,7 +12,7 @@ interface EmailOptions {
 }
 
 export async function sendVerificationEmail(email: string, token: string) {
-  const confirmLink = `${process.env.NEXTAUTH_URL}/verify?token=${token}`;
+  const confirmLink = `${process.env.NEXTAUTH_URL}/auth/verify?token=${token}`;
   const template = verificationEmailTemplate(confirmLink);
 
   const emailOptions: EmailOptions = {
