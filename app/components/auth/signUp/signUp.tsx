@@ -10,17 +10,15 @@ import Stepper from "../stepper/stepper";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema, SignupSchema } from "@/app/schemas/signup/signup.schema";
-import { useSectionForm } from "@/app/hooks/useSectionForm";
 import { useRegistration } from "@/app/hooks/useRegistration";
 import { useRouter } from "next/navigation";
+
 // Form steps enum
 const FORM_STEPS = {
   ACCOUNT: 1,
   CONTACT: 2,
   ADDRESS: 3,
 } as const;
-
-// Type for form steps
 
 type FormStep = (typeof FORM_STEPS)[keyof typeof FORM_STEPS];
 
@@ -32,10 +30,9 @@ const VALIDATION_FIELDS: Record<FormStep, (keyof SignupSchema)[]> = {
 } as const;
 
 export default function SignUp() {
-  // State management
   const [currentStep, setCurrentStep] = useState<FormStep>(FORM_STEPS.ACCOUNT);
   const router = useRouter();
-  // Form management
+
   const {
     register,
     watch,
@@ -47,16 +44,14 @@ export default function SignUp() {
     resolver: zodResolver(signupSchema),
     mode: "onChange",
     reValidateMode: "onChange",
+    defaultValues: {
+      termsAccepted: false,
+      newsletter: false,
+    },
   });
 
   const password = watch("password", "");
-
   const { signUp, loading } = useRegistration();
-
-  // Form sections
-  const accountForm = useSectionForm(register, errors, "account");
-  const contactForm = useSectionForm(register, errors, "contact");
-  const addressForm = useSectionForm(register, errors, "address");
 
   // Step transitions
   const handleNextStep = async (nextStep: FormStep) => {
@@ -79,9 +74,8 @@ export default function SignUp() {
 
     if (isValid) {
       const formData = getValues();
-      console.log(formData);
       const result = await signUp(formData);
-      if (result?.ok && !result?.error) {
+      if (!result?.error) {
         router.push("/auth/signin");
       }
     }
@@ -93,16 +87,16 @@ export default function SignUp() {
       case FORM_STEPS.ACCOUNT:
         return (
           <AccountSection
-            register={accountForm.register}
+            register={register}
             password={password}
-            errors={accountForm.errors}
+            errors={errors}
           />
         );
       case FORM_STEPS.CONTACT:
         return (
           <ContactSection
-            register={contactForm.register}
-            errors={contactForm.errors}
+            register={register}
+            errors={errors}
             setCurrentStep={handleStepChange}
             currentStep={currentStep}
           />
@@ -110,8 +104,8 @@ export default function SignUp() {
       case FORM_STEPS.ADDRESS:
         return (
           <AddressSection
-            register={addressForm.register}
-            errors={addressForm.errors}
+            register={register}
+            errors={errors}
             setCurrentStep={handleStepChange}
             currentStep={currentStep}
           />

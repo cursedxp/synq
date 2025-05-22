@@ -1,18 +1,14 @@
 import Input from "@/app/components/auth/common/input/input";
 import PasswordStrengthMeter from "../../common/passwordStrengthMeter/passwordStrengthMeter";
 import SectionTitle from "./sectionTitle";
-import { UseFormRegister } from "react-hook-form";
-import { AccountSchema } from "@/app/schemas/signup/account.schema";
+import { UseFormRegister, FieldErrors } from "react-hook-form";
+import { SignupSchema } from "@/app/schemas/signup/signup.schema";
 import Link from "next/link";
 
 interface AccountSectionProps {
-  register: UseFormRegister<AccountSchema>;
+  register: UseFormRegister<SignupSchema>;
   password: string;
-  errors: {
-    email?: { message?: string };
-    password?: { message?: string };
-    termsAccepted?: { message?: string };
-  };
+  errors: FieldErrors<SignupSchema>;
 }
 
 export default function AccountSection({

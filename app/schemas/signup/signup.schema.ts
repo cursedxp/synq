@@ -20,8 +20,8 @@ export const signupSchema = z.object({
     .regex(/[a-z]/, "Must contain at least one lowercase letter")
     .regex(/[0-9]/, "Must contain at least one number")
     .regex(/[^A-Za-z0-9]/, "Must contain at least one special character"),
-  termsAccepted: z.literal(true).refine((val) => val === true, {
-    message: "You must accept the terms",
+  termsAccepted: z.boolean().refine((val) => val === true, {
+    message: "You must accept the terms and conditions",
   }),
   newsletter: z.boolean().optional(),
   companyName: requiredField("Company name is required"),

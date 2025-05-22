@@ -3,7 +3,7 @@ import SectionTitle from "./sectionTitle";
 import CountrySelect from "../../common/select/countrySelect";
 import BackButton from "../../backButton/backButton";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { AddressSchema } from "@/app/schemas/signup/address.schema";
+import { SignupSchema } from "@/app/schemas/signup/signup.schema";
 
 const testOptions = [
   { label: "United States", value: "US" },
@@ -13,11 +13,12 @@ const testOptions = [
 ];
 
 interface AddressSectionProps {
-  register: UseFormRegister<AddressSchema>;
-  errors: FieldErrors<AddressSchema>;
+  register: UseFormRegister<SignupSchema>;
+  errors: FieldErrors<SignupSchema>;
   setCurrentStep: (step: number) => void;
   currentStep: number;
 }
+
 export default function AddressSection({
   register,
   errors,

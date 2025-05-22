@@ -2,11 +2,11 @@ import Input from "../../common/input/input";
 import SectionTitle from "./sectionTitle";
 import BackButton from "../../backButton/backButton";
 import { UseFormRegister, FieldErrors } from "react-hook-form";
-import { ContactSchema } from "@/app/schemas/signup/contact.schema";
+import { SignupSchema } from "@/app/schemas/signup/signup.schema";
 
 interface ContactSectionProps {
-  register: UseFormRegister<ContactSchema>;
-  errors: FieldErrors<ContactSchema>;
+  register: UseFormRegister<SignupSchema>;
+  errors: FieldErrors<SignupSchema>;
   setCurrentStep: (step: number) => void;
   currentStep: number;
 }
