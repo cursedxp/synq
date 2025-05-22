@@ -11,7 +11,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupSchema, SignupSchema } from "@/app/schemas/signup/signup.schema";
 import { useSectionForm } from "@/app/hooks/useSectionForm";
-
+import { useRegistration } from "@/app/hooks/useRegistration";
+import { useRouter } from "next/navigation";
 // Form steps enum
 const FORM_STEPS = {
   ACCOUNT: 1,
@@ -25,7 +26,7 @@ type FormStep = (typeof FORM_STEPS)[keyof typeof FORM_STEPS];
 
 // Validation fields with type safety
 const VALIDATION_FIELDS: Record<FormStep, (keyof SignupSchema)[]> = {
-  [FORM_STEPS.ACCOUNT]: ["email", "password"],
+  [FORM_STEPS.ACCOUNT]: ["email", "password", "termsAccepted"],
   [FORM_STEPS.CONTACT]: ["firstName", "lastName", "companyName", "phone"],
   [FORM_STEPS.ADDRESS]: ["addressLine1", "city", "country", "zip"],
 } as const;
@@ -33,7 +34,7 @@ const VALIDATION_FIELDS: Record<FormStep, (keyof SignupSchema)[]> = {
 export default function SignUp() {
   // State management
   const [currentStep, setCurrentStep] = useState<FormStep>(FORM_STEPS.ACCOUNT);
-
+  const router = useRouter();
   // Form management
   const {
     register,
@@ -44,11 +45,13 @@ export default function SignUp() {
     clearErrors,
   } = useForm<SignupSchema>({
     resolver: zodResolver(signupSchema),
-    mode: "onTouched",
+    mode: "onChange",
     reValidateMode: "onChange",
   });
 
   const password = watch("password", "");
+
+  const { signUp, loading } = useRegistration();
 
   // Form sections
   const accountForm = useSectionForm(register, errors, "account");
@@ -57,7 +60,7 @@ export default function SignUp() {
 
   // Step transitions
   const handleNextStep = async (nextStep: FormStep) => {
-    const fieldsToValidate = VALIDATION_FIELDS[nextStep];
+    const fieldsToValidate = VALIDATION_FIELDS[currentStep];
     const isValid = await trigger(fieldsToValidate);
 
     if (isValid) {
@@ -76,8 +79,11 @@ export default function SignUp() {
 
     if (isValid) {
       const formData = getValues();
-      // API call can be made
-      console.log("Form data:", formData);
+      console.log(formData);
+      const result = await signUp(formData);
+      if (result?.ok && !result?.error) {
+        router.push("/auth/signin");
+      }
     }
   };
 
@@ -131,7 +137,14 @@ export default function SignUp() {
           />
         );
       case FORM_STEPS.ADDRESS:
-        return <Button label="Sign up" onClick={handleSignUp} />;
+        return (
+          <Button
+            label="Sign up"
+            loading={loading}
+            onClick={handleSignUp}
+            disabled={loading}
+          />
+        );
     }
   };
 
@@ -142,7 +155,7 @@ export default function SignUp() {
         className="absolute top-20 left-1/2 -translate-x-1/2"
       />
 
-      <div className="flex flex-col w-sm gap-8">
+      <div className="flex flex-col w-sm gap-2">
         <form className="flex flex-col w-full">
           {renderActiveSection()}
           {renderActiveButton()}
