@@ -29,13 +29,14 @@ export function useSectionForm<T extends SectionType>(
   switch (section) {
     case "account":
       return {
-        register: ((field: keyof AccountSchema) =>
-          register(
-            field as keyof SignupSchema
-          )) as UseFormRegister<AccountSchema>,
+        register: ((field: keyof AccountSchema) => {
+          return register(field as keyof SignupSchema);
+        }) as UseFormRegister<AccountSchema>,
         errors: {
           email: errors.email,
           password: errors.password,
+          termsAccepted: errors.termsAccepted,
+          newsletter: errors.newsletter,
         } as FieldErrors<AccountSchema>,
       } as SectionForm<T>;
     case "contact":
