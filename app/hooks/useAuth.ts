@@ -9,6 +9,7 @@ interface SignInCredentials {
 export const useAuth = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<boolean>(false);
 
   const signIn = async (credentials: SignInCredentials) => {
     setLoading(true);
@@ -24,6 +25,7 @@ export const useAuth = () => {
         return result;
       }
 
+      setSuccess(true);
       return result;
     } catch {
       // Konsolda hata göstermeden sessizce geçiyoruz
@@ -33,5 +35,5 @@ export const useAuth = () => {
       setLoading(false);
     }
   };
-  return { loading, error, signIn };
+  return { loading, error, signIn, success };
 };
