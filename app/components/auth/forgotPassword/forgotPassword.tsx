@@ -9,6 +9,7 @@ import {
   forgotPasswordSchema,
   ForgotPasswordSchema,
 } from "@/app/schemas/forgotPassword/forgotPassword.schema";
+import Link from "next/link";
 
 export default function ForgotPassword() {
   const {
@@ -29,6 +30,7 @@ export default function ForgotPassword() {
         <SectionTitle
           title="Forgot Password"
           description="Enter your email address and we'll send you a link to reset your password."
+          h1ClassName="text-4xl"
         />
         <form className="flex flex-col gap-4 w-full">
           <Input
@@ -40,6 +42,19 @@ export default function ForgotPassword() {
           />
           <Button label="Reset Password" onClick={handleSubmit(onSubmit)} />
         </form>
+        <div className="flex flex-col w-sm gap-2">
+          <div className="text-gray-500 text-sm flex">
+            <div>
+              Back to{" "}
+              <Link
+                href="/auth/signin"
+                className="font-bold text-black underline"
+              >
+                Sign in
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

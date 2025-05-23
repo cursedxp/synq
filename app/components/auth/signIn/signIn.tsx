@@ -7,6 +7,7 @@ import { signInSchema } from "@/app/schemas/signIn/signin.schema";
 import { useAuth } from "@/app/hooks/useAuth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import SectionTitle from "../signUp/sections/sectionTitle";
 interface SignInFromData {
   email: string;
   password: string;
@@ -35,10 +36,11 @@ export default function SignInForm() {
   return (
     <div className="flex flex-col items-center justify-center w-full">
       <div className="flex flex-col w-sm gap-2">
-        <h1 className="text-4xl font-bold text-left">Sign in</h1>
-        <p className="text-gray-500 mb-4">
-          Welcome back! Let&apos;s continue your journey
-        </p>
+        <SectionTitle
+          title="Sign in"
+          description="Welcome back! Let's continue your journey"
+          h1ClassName="text-4xl"
+        />
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-4 w-full"
