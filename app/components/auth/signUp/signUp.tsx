@@ -9,7 +9,7 @@ import AddressSection from "./sections/addressSection";
 import Stepper from "../stepper/stepper";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signupSchema, SignupSchema } from "@/app/schemas/signup/signup.schema";
+import { signupSchema, SignupSchema } from "@/app/schemas/signUp/signup.schema";
 import { useRegistration } from "@/app/hooks/useRegistration";
 import { useRouter } from "next/navigation";
 

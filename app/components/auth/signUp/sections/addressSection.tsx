@@ -3,7 +3,7 @@ import SectionTitle from "./sectionTitle";
 import CountrySelect from "../../common/select/countrySelect";
 import BackButton from "../../backButton/backButton";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { SignupSchema } from "@/app/schemas/signup/signup.schema";
+import { SignupSchema } from "@/app/schemas/signUp/signup.schema";
 
 const testOptions = [
   { label: "United States", value: "US" },

@@ -3,7 +3,7 @@ import Button from "@/app/components/auth/common/button/button";
 import Input from "@/app/components/auth/common/input/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signInSchema } from "@/app/schemas/signin/signin.schema";
+import { signInSchema } from "@/app/schemas/signIn/signin.schema";
 import { useAuth } from "@/app/hooks/useAuth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

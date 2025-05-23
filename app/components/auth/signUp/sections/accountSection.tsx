@@ -2,7 +2,7 @@ import Input from "@/app/components/auth/common/input/input";
 import PasswordStrengthMeter from "../../common/passwordStrengthMeter/passwordStrengthMeter";
 import SectionTitle from "./sectionTitle";
 import { UseFormRegister, FieldErrors } from "react-hook-form";
-import { SignupSchema } from "@/app/schemas/signup/signup.schema";
+import { SignupSchema } from "@/app/schemas/signUp/signup.schema";
 import Link from "next/link";
 
 interface AccountSectionProps {

@@ -2,7 +2,7 @@ import Input from "../../common/input/input";
 import SectionTitle from "./sectionTitle";
 import BackButton from "../../backButton/backButton";
 import { UseFormRegister, FieldErrors } from "react-hook-form";
-import { SignupSchema } from "@/app/schemas/signup/signup.schema";
+import { SignupSchema } from "@/app/schemas/signUp/signup.schema";
 
 interface ContactSectionProps {
   register: UseFormRegister<SignupSchema>;

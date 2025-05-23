@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SignupSchema } from "../schemas/signup/signup.schema";
+import { SignupSchema } from "../schemas/signUp/signup.schema";
 
 export function useRegistration() {
   // Define state variables
