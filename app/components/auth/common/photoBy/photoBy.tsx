@@ -1,19 +1,21 @@
 "use client";
-import { FiMapPin, FiAperture } from "react-icons/fi";
+import { FiMapPin, FiAperture, FiFileText } from "react-icons/fi";
 import Link from "next/link";
 import React from "react";
 import { useState, useRef, useEffect } from "react";
 
 interface PhotoByProps {
-  location: string;
+  location?: string;
   photographer: string;
   photoUrl: string;
+  shortText?: string;
 }
 
 export default function PhotoBy({
   location,
   photographer,
   photoUrl,
+  shortText,
 }: PhotoByProps) {
   const [showContent, setShowContent] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -53,8 +55,12 @@ export default function PhotoBy({
           className={`flex justify-center text-sm items-center gap-2 mx-2 text-white `}
           ref={contentRef}
         >
-          <FiMapPin aria-hidden="true" />
-          <div>{location}</div>
+          {shortText ? (
+            <FiFileText aria-hidden="true" />
+          ) : (
+            <FiMapPin aria-hidden="true" />
+          )}
+          <div>{shortText || location}</div>
           <FiAperture aria-hidden="true" />
           <Link
             className="font-semibold underline"
