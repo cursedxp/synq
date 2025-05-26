@@ -74,7 +74,7 @@ export default function SignInForm() {
             </Link>
           </div>
           <div className="flex text-sm text-black font-semibold underline">
-            <Link href="/auth/forgot-password">Forgot password?</Link>
+            <Link href="/auth/password/forgot">Forgot password?</Link>
           </div>
         </div>
         {error && <p className="text-red-500">{error}</p>}
