@@ -2,12 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { signupSchema } from "@/app/schemas/signUp/signup.schema";
 import { prisma } from "@/app/lib/prisma";
 import bcrypt from "bcrypt";
-
-interface ResetPasswordResponse {
-  success: boolean;
-  message: string;
-  status: number;
-}
+import {
+  createErrorResponse,
+  createSuccessResponse,
+} from "@/app/api/utils/helpers";
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,11 +13,9 @@ export async function POST(request: NextRequest) {
     const { password } = await request.json();
 
     if (!token || !password) {
-      return NextResponse.json({
-        success: false,
-        message: "Token and password are required",
-        status: 400,
-      } as ResetPasswordResponse);
+      return NextResponse.json(
+        createErrorResponse("Token and password are required")
+      );
     }
 
     // Validate password first
@@ -27,11 +23,7 @@ export async function POST(request: NextRequest) {
     if (!passwordValidation.success) {
       const errorMessage =
         passwordValidation.error.errors[0]?.message || "Invalid password";
-      return NextResponse.json({
-        success: false,
-        message: errorMessage,
-        status: 400,
-      } as ResetPasswordResponse);
+      return NextResponse.json(createErrorResponse(errorMessage));
     }
 
     // Perform all database operations in a single transaction
@@ -90,18 +82,11 @@ export async function POST(request: NextRequest) {
       });
     });
 
-    return NextResponse.json({
-      success: true,
-      message: "Password reset successful",
-      status: 200,
-    } as ResetPasswordResponse);
+    return NextResponse.json(
+      createSuccessResponse("Password reset successful")
+    );
   } catch (error) {
     console.error("Reset password error:", error);
-    return NextResponse.json({
-      success: false,
-      message:
-        error instanceof Error ? error.message : "Error resetting password",
-      status: 500,
-    } as ResetPasswordResponse);
+    return NextResponse.json(createErrorResponse("Reset password error", 500));
   }
 }

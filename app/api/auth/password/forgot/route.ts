@@ -2,23 +2,17 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/app/lib/prisma";
 import crypto from "crypto";
 import { sendForgotPasswordEmail } from "@/app/lib/email";
-
-interface ForgotPasswordResponse {
-  success: boolean;
-  message: string;
-  status: number;
-}
+import {
+  createErrorResponse,
+  createSuccessResponse,
+} from "@/app/api/utils/helpers";
 
 export async function POST(request: NextRequest) {
   try {
     const { email } = await request.json();
 
     if (!email) {
-      return NextResponse.json({
-        success: false,
-        message: "Email is required",
-        status: 400,
-      } as ForgotPasswordResponse);
+      return NextResponse.json(createErrorResponse("Email is required"));
     }
 
     // Check if email exists
@@ -28,11 +22,7 @@ export async function POST(request: NextRequest) {
 
     // If not, return error
     if (!account) {
-      return NextResponse.json({
-        success: false,
-        message: "Email not found",
-        status: 404,
-      } as ForgotPasswordResponse);
+      return NextResponse.json(createErrorResponse("Email not found"));
     }
 
     // Generate a token
@@ -65,20 +55,13 @@ export async function POST(request: NextRequest) {
     // Send email with token
     await sendForgotPasswordEmail(email, token);
 
-    return NextResponse.json({
-      success: true,
-      message: "Password reset email sent",
-      status: 200,
-    } as ForgotPasswordResponse);
+    return NextResponse.json(
+      createSuccessResponse("Password reset email sent")
+    );
   } catch (error) {
     console.error("Password reset error:", error);
-    return NextResponse.json({
-      success: false,
-      message:
-        error instanceof Error
-          ? error.message
-          : "Error sending password reset email",
-      status: 500,
-    } as ForgotPasswordResponse);
+    return NextResponse.json(
+      createErrorResponse("Password reset email sent", 500)
+    );
   }
 }

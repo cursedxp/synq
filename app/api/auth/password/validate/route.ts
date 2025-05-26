@@ -1,22 +1,16 @@
 import { prisma } from "@/app/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
-
-interface ResetPasswordResponse {
-  success: boolean;
-  message: string;
-  status: number;
-}
+import {
+  createSuccessResponse,
+  createErrorResponse,
+} from "@/app/api/utils/helpers";
 
 export async function GET(request: NextRequest) {
   try {
     const token = request.nextUrl.searchParams.get("token");
 
     if (!token) {
-      return NextResponse.json({
-        success: false,
-        message: "Token is required",
-        status: 400,
-      } as ResetPasswordResponse);
+      return NextResponse.json(createErrorResponse("Token is required"));
     }
 
     // Use transaction to validate token
@@ -28,11 +22,7 @@ export async function GET(request: NextRequest) {
       });
 
       if (!passwordResetToken) {
-        return {
-          success: false,
-          message: "Invalid or expired token",
-          status: 400,
-        } as ResetPasswordResponse;
+        return createErrorResponse("Invalid or expired token");
       }
 
       // Check if token is expired
@@ -43,27 +33,17 @@ export async function GET(request: NextRequest) {
             token: token,
           },
         });
-        return {
-          success: false,
-          message: "Token has expired",
-          status: 400,
-        } as ResetPasswordResponse;
+        return createErrorResponse("Token has expired");
       }
 
-      return {
-        success: true,
-        message: "Token is valid",
-        status: 200,
-      } as ResetPasswordResponse;
+      return createSuccessResponse("Token is valid");
     });
 
     return NextResponse.json(result);
   } catch (error) {
     console.error("Reset password error:", error);
-    return NextResponse.json({
-      success: false,
-      message: "Error validating token",
-      status: 500,
-    } as ResetPasswordResponse);
+    return NextResponse.json(
+      createErrorResponse("Error validating token", 500)
+    );
   }
 }
