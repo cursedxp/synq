@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/app/lib/prisma";
 import crypto from "crypto";
-import { sendVerificationEmail } from "@/app/lib/email";
+import { sendForgotPasswordEmail } from "@/app/lib/email";
 
 interface ForgotPasswordResponse {
   success: boolean;
@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Send email with token
-    await sendVerificationEmail(email, token);
+    await sendForgotPasswordEmail(email, token);
 
     return NextResponse.json({
       success: true,
