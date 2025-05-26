@@ -1,6 +1,10 @@
-interface Response {
+type HTTPStatusCode = 200 | 201 | 202 | 204 | 400 | 401 | 403 | 404 | 409 | 500;
+
+interface Response<T = unknown> {
   success: boolean;
   message: string;
-  status: number;
+  status: HTTPStatusCode;
+  data?: T;
 }
-export type { Response };
+
+export type { Response, HTTPStatusCode };
