@@ -7,4 +7,22 @@ interface Response<T = unknown> {
   data?: T;
 }
 
-export type { Response, HTTPStatusCode };
+interface RegisterUserRequest {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  companyName: string;
+  addressLine1: string;
+  addressLine2?: string;
+  city: string;
+  state: string;
+  country: string;
+  zip: string;
+  termsAccepted: boolean;
+  newsletter: boolean;
+}
+
+export type { Response, HTTPStatusCode, RegisterUserRequest };
