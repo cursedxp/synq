@@ -12,6 +12,7 @@ import Image from "next/image";
 import Button from "@/app/components/auth/common/button/button";
 import { HiOutlineExclamation } from "react-icons/hi";
 import { FaCheck } from "react-icons/fa6";
+import Input from "@/app/components/auth/common/input/input";
 
 const ResetPasswordSchema = z.object({
   password: z
@@ -172,19 +173,16 @@ export default function ResetPasswordPage() {
                     {error}
                   </div>
                 )}
-                <div>
-                  <input
+                <div className="flex flex-col">
+                  <Input
+                    label="New Password"
                     type="password"
                     placeholder="New Password"
                     {...register("password")}
-                    className="w-full p-2 border rounded mb-2"
                     disabled={isLoading}
+                    error={errors.password?.message}
+                    className="mb-2"
                   />
-                  {errors.password && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.password.message}
-                    </p>
-                  )}
                 </div>
                 <PasswordStrengthMeter password={watch("password")} />
                 <Button
