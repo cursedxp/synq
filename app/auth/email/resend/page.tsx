@@ -11,7 +11,7 @@ export default function ResendVerification() {
   } | null>(null);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const response = await fetch("/api/auth/resend-verification", {
+    const response = await fetch("/api/auth/email/resend", {
       method: "POST",
       body: JSON.stringify({ email: session?.user?.email }),
     });

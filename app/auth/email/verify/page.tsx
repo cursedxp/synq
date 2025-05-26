@@ -21,7 +21,7 @@ export default function Verify() {
       }
 
       try {
-        const response = await fetch(`/api/auth/verify?token=${token}`, {
+        const response = await fetch(`/api/auth/email/verify?token=${token}`, {
           method: "POST",
         });
         const data = await response.json();
