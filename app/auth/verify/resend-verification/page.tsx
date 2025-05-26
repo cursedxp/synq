@@ -16,7 +16,6 @@ export default function ResendVerification() {
       body: JSON.stringify({ email: session?.user?.email }),
     });
     const data = await response.json();
-    console.log(data);
     setResponse(data);
   };
 
