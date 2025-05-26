@@ -4,39 +4,27 @@ import { signupSchema } from "@/app/schemas/signUp/signup.schema";
 import { sendVerificationEmail } from "@/app/lib/email";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
+import { RegisterUserRequest } from "@/app/api/types/types";
+import {
+  createErrorResponse,
+  createSuccessResponse,
+} from "../../utils/helpers";
 
-interface RegisterRequest {
-  email: string;
-  password: string;
-  confirmPassword: string;
-  firstName: string;
-  lastName: string;
-  phone: string;
-  companyName: string;
-  addressLine1: string;
-  addressLine2?: string;
-  city: string;
-  state: string;
-  country: string;
-  zip: string;
-  termsAccepted: boolean;
-  newsletter: boolean;
-}
-interface RegisterResponse {
-  success: boolean;
-  message: string;
-  account?: {
-    id: string;
-    email: string;
-    firstName: string;
-    lastName: string;
-  };
-  status: number;
-}
+// interface RegisterResponse {
+//   success: boolean;
+//   message: string;
+//   account?: {
+//     id: string;
+//     email: string;
+//     firstName: string;
+//     lastName: string;
+//   };
+//   status: number;
+// }
 
 export async function POST(request: NextRequest) {
   try {
-    const body = (await request.json()) as RegisterRequest;
+    const body = (await request.json()) as RegisterUserRequest;
 
     // Validate the signup
     const signupValidation = signupSchema.safeParse(body);
@@ -121,23 +109,15 @@ export async function POST(request: NextRequest) {
     }
 
     //Return success or failure
-    return NextResponse.json({
-      success: true,
-      message: "Verification email sent successfully",
-      account: {
+    return NextResponse.json(
+      createSuccessResponse("Verification email sent successfully", {
         id: newAccount.account.id,
         email: newAccount.account.email,
         firstName: newAccount.account.firstName,
         lastName: newAccount.account.lastName,
-      },
-      status: 200,
-    } as RegisterResponse);
-  } catch (error) {
-    console.error("Registration error:", error);
-    return NextResponse.json({
-      success: false,
-      message: "Internal server error",
-      status: 500,
-    } as RegisterResponse);
+      })
+    );
+  } catch {
+    return NextResponse.json(createErrorResponse("Internal server error", 500));
   }
 }
