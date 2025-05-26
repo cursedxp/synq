@@ -1,12 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/app/lib/prisma";
 
-//Verify email
-//Get token from query params
-//Verify token
-//update account status to verified
-//redirect to login page
-
 interface VerifyResponse {
   success: boolean;
   message: string;
