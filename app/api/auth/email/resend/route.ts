@@ -5,6 +5,7 @@ import { prisma } from "@/app/lib/prisma";
 import crypto from "crypto";
 import { sendVerificationEmail } from "@/app/lib/email";
 import { AuthOptions } from "next-auth";
+import { Response } from "@/app/api/types/types";
 
 export async function POST() {
   try {
@@ -15,7 +16,7 @@ export async function POST() {
         success: false,
         message: "You are not logged in",
         status: 401,
-      });
+      } as Response);
     }
 
     const email = session.user.email;
@@ -29,7 +30,7 @@ export async function POST() {
         success: false,
         message: "Account not found",
         status: 404,
-      });
+      } as Response);
     }
 
     if (account.emailVerified) {
@@ -37,7 +38,7 @@ export async function POST() {
         success: true,
         message: "Account already verified",
         status: 200,
-      });
+      } as Response);
     }
 
     await prisma.$transaction(async (tx) => {
@@ -65,13 +66,13 @@ export async function POST() {
       success: true,
       message: "Verification email sent",
       status: 200,
-    });
+    } as Response);
   } catch (error) {
     console.error("Error in resend verification:", error);
     return NextResponse.json({
       success: false,
       message: "Failed to send verification email",
       status: 500,
-    });
+    } as Response);
   }
 }

@@ -1,11 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/app/lib/prisma";
-
-interface VerifyResponse {
-  success: boolean;
-  message: string;
-  status: number;
-}
+import { Response } from "@/app/api/types/types";
 
 export async function POST(request: NextRequest) {
   try {
@@ -16,7 +11,7 @@ export async function POST(request: NextRequest) {
         success: false,
         message: "Token is required",
         status: 400,
-      } as VerifyResponse);
+      } as Response);
     }
 
     const result = await prisma.$transaction(async (tx) => {
@@ -31,7 +26,7 @@ export async function POST(request: NextRequest) {
           success: false,
           message: "Invalid token",
           status: 400,
-        } as VerifyResponse;
+        } as Response;
       }
 
       const account = await tx.account.findUnique({
@@ -45,7 +40,7 @@ export async function POST(request: NextRequest) {
           success: false,
           message: "Account not found",
           status: 400,
-        } as VerifyResponse;
+        } as Response;
       }
 
       // Update account status to verified
@@ -69,7 +64,7 @@ export async function POST(request: NextRequest) {
         success: true,
         message: "Email verified successfully",
         status: 200,
-      } as VerifyResponse;
+      } as Response;
     });
 
     return NextResponse.json(result);
@@ -79,6 +74,6 @@ export async function POST(request: NextRequest) {
       success: false,
       message: "Internal server error",
       status: 500,
-    } as VerifyResponse);
+    } as Response);
   }
 }
