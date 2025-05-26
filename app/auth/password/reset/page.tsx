@@ -50,7 +50,7 @@ export default function ResetPasswordPage() {
     const validateToken = async () => {
       try {
         const response = await fetch(
-          `/api/auth/password/password/validate-token?token=${token}`
+          `/api/auth/password/validate?token=${token}`
         );
         const data = await response.json();
         setIsTokenValid(data.success);
