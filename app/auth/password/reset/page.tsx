@@ -119,9 +119,9 @@ export default function ResetPasswordPage() {
             className="object-cover"
           />
           <PhotoBy
-            location="Yellowstone National Park, United States"
-            photographer="Kimon Maritz"
-            photoUrl="https://unsplash.com/@kimonmaritz"
+            location="Czech Republic,Prague"
+            photographer="Tom Grünbauer"
+            photoUrl="https://unsplash.com/@tomgruenbauer"
           />
         </div>
       }
