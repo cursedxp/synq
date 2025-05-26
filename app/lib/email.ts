@@ -44,13 +44,13 @@ export async function sendEmail(
 
 // Example usage functions for specific email types
 export async function sendVerificationEmail(email: string, token: string) {
-  const confirmLink = `${process.env.NEXTAUTH_URL}/auth/verify?token=${token}`;
+  const confirmLink = `${process.env.NEXTAUTH_URL}/auth/email/verify?token=${token}`;
   const template = verificationEmailTemplate(confirmLink);
   await sendEmail(email, template);
 }
 
 export async function sendForgotPasswordEmail(email: string, token: string) {
-  const resetLink = `${process.env.NEXTAUTH_URL}/auth/reset-password?token=${token}`;
+  const resetLink = `${process.env.NEXTAUTH_URL}/auth/password/reset?token=${token}`;
   const template = forgotPasswordEmailTemplate(resetLink);
   await sendEmail(email, template);
 }

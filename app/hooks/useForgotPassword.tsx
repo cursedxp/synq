@@ -15,7 +15,7 @@ export function useForgotPassword() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch("/api/auth/forgot-password", {
+      const response = await fetch("/api/auth/password/forgot", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
