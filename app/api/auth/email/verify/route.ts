@@ -2,16 +2,21 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/app/lib/prisma";
 import { Response } from "@/app/api/types/types";
 
+const baseResponse: Response = {
+  success: false,
+  message: "",
+  status: 400,
+};
+
 export async function POST(request: NextRequest) {
   try {
     const token = request.nextUrl.searchParams.get("token") as string;
 
     if (!token) {
       return NextResponse.json({
-        success: false,
+        ...baseResponse,
         message: "Token is required",
-        status: 400,
-      } as Response);
+      });
     }
 
     const result = await prisma.$transaction(async (tx) => {
@@ -23,10 +28,9 @@ export async function POST(request: NextRequest) {
 
       if (!verificationToken) {
         return {
-          success: false,
+          ...baseResponse,
           message: "Invalid token",
-          status: 400,
-        } as Response;
+        };
       }
 
       const account = await tx.account.findUnique({
@@ -37,10 +41,9 @@ export async function POST(request: NextRequest) {
 
       if (!account) {
         return {
-          success: false,
+          ...baseResponse,
           message: "Account not found",
-          status: 400,
-        } as Response;
+        };
       }
 
       // Update account status to verified
@@ -61,7 +64,7 @@ export async function POST(request: NextRequest) {
       });
 
       return {
-        success: true,
+        ...baseResponse,
         message: "Email verified successfully",
         status: 200,
       } as Response;
@@ -71,7 +74,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Error verifying email:", error);
     return NextResponse.json({
-      success: false,
+      ...baseResponse,
       message: "Internal server error",
       status: 500,
     } as Response);
