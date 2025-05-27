@@ -119,7 +119,7 @@ export default function ResetPasswordPage() {
             className="object-cover"
           />
           <PhotoBy
-            location="Czech Republic,Prague"
+            location="Prague, Czech Republic"
             photographer="Tom Grünbauer"
             photoUrl="https://unsplash.com/@tomgruenbauer"
           />
