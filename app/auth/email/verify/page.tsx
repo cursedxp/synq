@@ -33,7 +33,14 @@ export default function Verify() {
             </div>
           )}
           {!loading && (
-            <VerificationCard success={success} message={error || ""} />
+            <VerificationCard
+              success={success}
+              message={
+                success
+                  ? "Your email has been verified successfully!"
+                  : error || "Verification failed"
+              }
+            />
           )}
         </div>
       </div>
