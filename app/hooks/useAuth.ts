@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { signIn as nextAuthSignIn } from "next-auth/react";
 
 interface SignInCredentials {
@@ -11,7 +11,7 @@ export const useAuth = () => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
 
-  const signIn = async (credentials: SignInCredentials) => {
+  const signIn = useCallback(async (credentials: SignInCredentials) => {
     setLoading(true);
     setError(null);
     try {
@@ -34,6 +34,7 @@ export const useAuth = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
   return { loading, error, signIn, success };
 };

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Response } from "@/app/api/types/types";
 
 export function useEmailTokenVerify() {
@@ -6,7 +6,7 @@ export function useEmailTokenVerify() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const verifyToken = async (token: string) => {
+  const verifyToken = useCallback(async (token: string) => {
     // Check if token is provided
     if (!token) {
       setError("Token is required");
@@ -42,7 +42,7 @@ export function useEmailTokenVerify() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   return { verifyToken, success, error, loading };
 }

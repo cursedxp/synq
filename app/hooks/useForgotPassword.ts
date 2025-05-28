@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 interface ForgotPasswordResponse {
   success: boolean;
@@ -11,7 +11,7 @@ export function useForgotPassword() {
   const [loading, setLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
 
-  const forgotPassword = async (email: string) => {
+  const forgotPassword = useCallback(async (email: string) => {
     setLoading(true);
     setError(null);
     try {
@@ -38,7 +38,7 @@ export function useForgotPassword() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   return { forgotPassword, error, loading, success };
 }

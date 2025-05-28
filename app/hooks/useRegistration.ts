@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { SignupSchema } from "../schemas/signUp/signup.schema";
 
 export function useRegistration() {
@@ -8,7 +8,7 @@ export function useRegistration() {
   const [success, setSuccess] = useState<boolean>(false);
 
   // Define signUp function
-  const signUp = async (formData: SignupSchema) => {
+  const signUp = useCallback(async (formData: SignupSchema) => {
     setLoading(true);
     setError(null);
     try {
@@ -30,7 +30,7 @@ export function useRegistration() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   return { signUp, error, loading, success };
 }
