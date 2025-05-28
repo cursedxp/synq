@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,9 +10,8 @@ import SplitScreen from "@/app/components/auth/common/splitScreen/splitScreen";
 import PhotoBy from "@/app/components/auth/common/photoBy/photoBy";
 import Image from "next/image";
 import Button from "@/app/components/auth/common/button/button";
-import { HiOutlineExclamation } from "react-icons/hi";
-import { FaCheck } from "react-icons/fa6";
 import Input from "@/app/components/auth/common/input/input";
+import VerificationCard from "@/app/components/verification/verificationCard";
 
 const ResetPasswordSchema = z.object({
   password: z
@@ -28,7 +27,6 @@ type ResetPasswordFormData = z.infer<typeof ResetPasswordSchema>;
 
 export default function ResetPasswordPage() {
   const searchParams = useSearchParams();
-  const router = useRouter();
   const token = searchParams.get("token");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -129,39 +127,23 @@ export default function ResetPasswordPage() {
         <div className="flex flex-col w-full relative items-center justify-center">
           <div className="flex flex-col w-sm gap-2">
             {!isTokenValid ? (
-              <div className="flex flex-col gap-2">
-                <div className="flex flex-col items-center gap-2">
-                  <div className="flex items-center justify-center rounded-full bg-red-100 p-4 w-32 h-32">
-                    <HiOutlineExclamation className="text-red-500 w-20 h-20" />
-                  </div>
-                  <h2 className="text-4xl font-bold">Invalid link.</h2>
-                  <p className="text-zinc-500  text-center">
-                    The password reset link is invalid, expired, or missing.
-                    Please request a new password reset email.
-                  </p>
-                </div>
-                <Button
-                  label="Back to Sign In"
-                  onClick={() => router.push("/auth/signin")}
-                />
-              </div>
+              <VerificationCard
+                success={false}
+                message="The password reset link is invalid, expired, or missing. Please request a new password reset email."
+                title="Invalid Link"
+                buttonLabel="Back to Sign In"
+                redirectRoute="/auth/signin"
+                iconType="error"
+              />
             ) : showSuccess ? (
-              <div className="flex flex-col gap-2">
-                <div className="flex flex-col items-center gap-2">
-                  <div className="flex items-center justify-center rounded-full bg-green-100 p-4 w-32 h-32">
-                    <FaCheck className="text-green-500 w-20 h-20" />
-                  </div>
-                  <h2 className="text-4xl font-bold">Success!</h2>
-                  <p className="text-zinc-500 text-center">
-                    Your password has been reset successfully. You can now sign
-                    in with your new password.
-                  </p>
-                </div>
-                <Button
-                  label="Back to Sign In"
-                  onClick={() => router.push("/auth/signin")}
-                />
-              </div>
+              <VerificationCard
+                success={true}
+                message="Your password has been reset successfully. You can now sign in with your new password."
+                title="Password Reset Successful"
+                buttonLabel="Back to Sign In"
+                redirectRoute="/auth/signin"
+                iconType="success"
+              />
             ) : (
               <form
                 onSubmit={handleSubmit(onSubmit)}
