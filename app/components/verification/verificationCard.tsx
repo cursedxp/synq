@@ -1,4 +1,6 @@
 import { HiXMark, HiCheck } from "react-icons/hi2";
+import { useRouter } from "next/navigation";
+import Button from "../auth/common/button/button";
 
 type CardStatus = {
   success: boolean;
@@ -7,8 +9,10 @@ type CardStatus = {
 };
 
 export default function VerificationCard({ success, message }: CardStatus) {
+  const router = useRouter();
+
   return (
-    <>
+    <div className="flex flex-col items-center justify-center">
       <div className="flex justify-center mb-6">
         <div
           className={`w-32 h-32 rounded-full ${!success ? "bg-red-100" : "bg-green-100"} flex items-center justify-center`}
@@ -24,7 +28,11 @@ export default function VerificationCard({ success, message }: CardStatus) {
         {success ? "Verification Successful!" : "Verification Failed"}
       </h2>
       <p className="text-gray-600 mb-4">{message}</p>
-      <p className="text-sm text-gray-500">Redirecting to sign up page...</p>
-    </>
+      {success && (
+        <Button onClick={() => router.push("/auth/signup")} label="Sign Up">
+          Sign Up
+        </Button>
+      )}
+    </div>
   );
 }
