@@ -12,11 +12,9 @@ import {
 import Link from "next/link";
 import { useForgotPassword } from "@/app/hooks/useForgotPassword";
 import { useState } from "react";
-import { FaCheck } from "react-icons/fa6";
-import { useRouter } from "next/navigation";
+import VerificationCard from "@/app/components/verification/verificationCard";
 
 export default function ForgotPassword() {
-  const router = useRouter();
   const { forgotPassword, loading, error } = useForgotPassword();
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -39,22 +37,14 @@ export default function ForgotPassword() {
     <div className="flex flex-col w-full relative items-center justify-center">
       <div className="flex flex-col w-sm gap-2">
         {showSuccess ? (
-          <div className="flex flex-col gap-2">
-            <div className="flex flex-col items-center gap-2">
-              <div className="flex items-center justify-center rounded-full bg-green-100 p-4 w-32 h-32">
-                <FaCheck className="text-green-500 w-20 h-20" />
-              </div>
-              <h2 className="text-4xl font-bold">Success!</h2>
-              <p className="text-zinc-500  text-center">
-                Please check your inbox. If you don&apos;t see it, please check
-                your spam folder.
-              </p>
-            </div>
-            <Button
-              label="Back to Sign In"
-              onClick={() => router.push("/auth/signin")}
-            />
-          </div>
+          <VerificationCard
+            success={true}
+            message="Please check your inbox. If you don't see it, please check your spam folder."
+            title="Check Your Email"
+            buttonLabel="Back to Sign In"
+            redirectRoute="/auth/signin"
+            iconType="email"
+          />
         ) : (
           <>
             <SectionTitle
