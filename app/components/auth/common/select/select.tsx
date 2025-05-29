@@ -1,11 +1,17 @@
 "use client";
 import { FiChevronDown } from "react-icons/fi";
 
+interface SelectOption {
+  label: string;
+  value: string;
+  flag: string;
+}
+
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label: string;
   error?: string;
-  options?: { label: string; value: string }[];
-  setCurrentOption?: (option: { label: string; value: string }) => void;
+  options?: SelectOption[];
+  setCurrentOption?: (option: SelectOption) => void;
   className?: string;
 }
 //TODO:Create json file with countries and their codes and flag file urls

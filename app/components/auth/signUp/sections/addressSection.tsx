@@ -5,13 +5,6 @@ import BackButton from "../../backButton/backButton";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 import { SignupSchema } from "@/app/schemas/signUp/signup.schema";
 
-const testOptions = [
-  { label: "United States", value: "US" },
-  { label: "Italy", value: "IT" },
-  { label: "Great Britain", value: "GB" },
-  { label: "Australia", value: "AU" },
-];
-
 interface AddressSectionProps {
   register: UseFormRegister<SignupSchema>;
   errors: FieldErrors<SignupSchema>;
@@ -50,7 +43,6 @@ export default function AddressSection({
         <div className="flex items-center gap-2">
           <CountrySelect
             label="Country"
-            options={testOptions}
             className="pl-10"
             {...register("country")}
           />

@@ -3,19 +3,32 @@
 import { useState } from "react";
 import Image from "next/image";
 import Select from "./select";
+import countriesData from "@/app/data/countries.json";
+
+interface Country {
+  code: string;
+  name: string;
+  flag: string;
+}
+
+const countryOptions = countriesData.countries.map((country: Country) => ({
+  label: country.name,
+  value: country.code,
+  flag: country.flag,
+}));
+
 interface CountrySelectProps
   extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label: string;
   error?: string;
-  options?: { label: string; value: string }[];
 }
+
 export default function CountrySelect({
   label,
-  options,
   className,
   ...props
 }: CountrySelectProps) {
-  const [currentOption, setCurrentOption] = useState(options?.[0]);
+  const [currentOption, setCurrentOption] = useState(countryOptions[0]);
 
   return (
     <div className="relative">
@@ -30,7 +43,7 @@ export default function CountrySelect({
       <Select
         {...props}
         label={label}
-        options={options}
+        options={countryOptions}
         setCurrentOption={setCurrentOption}
         className={className}
       />
